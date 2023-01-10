@@ -1,4 +1,6 @@
-
+body{
+    background-size: cover;
+}
 .heading button{
     float: right;
     border: 1px solid gray;
