@@ -21,13 +21,42 @@ var ball = {
     dy:3
 }
 
+rightWristX = "";
+rightWristY = "";
+rightWristScore = "";
 function setup(){
   var canvas =  createCanvas(700,600);
-  
+  canvas.parent('canvas');
+
+	video = createCapture(VIDEO);
+	video.size(800, 400);
+	video.parent('game_console');
+
+	poseNet = ml5.poseNet(video , modelLoaded);
+	poseNet.on('pose', gotPoses);
 }
 
+function modelLoaded() {
+	console.log('Model Loaded');
+}
+
+function gotPoses(results) {
+	if(results.length > 0){
+		console.log(results);
+		rightWristX = results[0].pose.rightWrist.x;
+		rightWristY = results[0].pose.rightWrist.y;
+    rightWristScore = results[0].pose.keypoints[10].score;
+	}
+}
 
 function draw(){
+
+  fill("#FF0000");
+  stroke("#FF0000");
+  if(rightWristScore > 0.2)
+  {
+      circle(rightWristX, rightWristY, 20);
+  }
 
  background(0); 
 
