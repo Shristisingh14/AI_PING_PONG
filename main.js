@@ -24,6 +24,8 @@ var ball = {
 rightWristX = "";
 rightWristY = "";
 rightWristScore = "";
+game_status = "";
+
 function setup(){
   var canvas =  createCanvas(700,600);
   canvas.parent('canvas');
@@ -49,8 +51,12 @@ function gotPoses(results) {
 	}
 }
 
+function startGame(){
+  game_status = "start";
+  document.getElementById("status").innerHTML = "Game is Loading";
+ }
 function draw(){
-
+ if(game_status == "start"){
   fill("#FF0000");
   stroke("#FF0000");
   if(rightWristScore > 0.2)
@@ -95,6 +101,7 @@ function draw(){
    
    //function move call which in very important
     move();
+    }
 }
 
 
